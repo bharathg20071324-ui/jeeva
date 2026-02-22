@@ -11,9 +11,17 @@
         body { font-family: 'Inter', sans-serif; }
         .scrollbar-hide::-webkit-scrollbar { display: none; }
         .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
-        .tab-content { display: none; }
-        .tab-content.active { display: block; }
+        .tab-content { display: none; opacity: 0; transition: opacity 0.3s ease; }
+        .tab-content.active { display: block; opacity: 1; }
         .nav-button.active { border-color: #4f46e5; color: #4f46e5; background-color: white; }
+
+        /* Map Marker Animation */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-5px); }
+            100% { transform: translateY(0px); }
+        }
+        .floating-marker { animation: float 3s ease-in-out infinite; transition: all 5s linear; }
     </style>
 </head>
 <body class="min-h-screen bg-slate-50 text-slate-900 pb-20">
@@ -49,13 +57,13 @@
                     <i data-lucide="heart" class="w-4 h-4"></i> Customer UX
                 </button>
                 <button onclick="switchTab('dashboard-ux')" class="nav-button flex items-center gap-2 px-6 py-4 text-sm font-bold transition-all border-b-2 border-transparent text-slate-400 hover:text-slate-600" data-tab="dashboard-ux">
-                    <i data-lucide="layout-dashboard" class="w-4 h-4"></i> Dashboard UX
+                    <i data-lucide="layout-dashboard" class="w-4 h-4"></i> Live Tracking
                 </button>
                 <button onclick="switchTab('roadmap')" class="nav-button flex items-center gap-2 px-6 py-4 text-sm font-bold transition-all border-b-2 border-transparent text-slate-400 hover:text-slate-600" data-tab="roadmap">
                     <i data-lucide="clock" class="w-4 h-4"></i> Roadmap
                 </button>
                 <button onclick="switchTab('frd')" class="nav-button flex items-center gap-2 px-6 py-4 text-sm font-bold transition-all border-b-2 border-transparent text-slate-400 hover:text-slate-600" data-tab="frd">
-                    <i data-lucide="file-text" class="w-4 h-4"></i> Feature List (FRD)
+                    <i data-lucide="file-text" class="w-4 h-4"></i> Feature List
                 </button>
             </nav>
 
@@ -63,7 +71,7 @@
             <div id="tab-container" class="flex-1 overflow-y-auto">
                 
                 <!-- Ecosystem Section -->
-                <section id="ecosystem" class="tab-content active p-4">
+                <section id="ecosystem" class="tab-content active p-8">
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                         <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-shadow">
                             <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center mb-4">
@@ -72,10 +80,9 @@
                             <h3 class="text-xl font-bold text-slate-800 mb-2">Jiva Customer App</h3>
                             <p class="text-slate-500 text-sm mb-4">Elderly-friendly portal for meal & med subscriptions.</p>
                             <ul class="space-y-2 text-sm text-slate-600">
-                                <li class="flex items-center gap-2"><div class="w-1.5 h-1.5 bg-blue-400 rounded-full"></div> Subscription Management</li>
-                                <li class="flex items-center gap-2"><div class="w-1.5 h-1.5 bg-blue-400 rounded-full"></div> Live Delivery Tracking</li>
-                                <li class="flex items-center gap-2"><div class="w-1.5 h-1.5 bg-blue-400 rounded-full"></div> Support Hotline Integration</li>
-                                <li class="flex items-center gap-2"><div class="w-1.5 h-1.5 bg-blue-400 rounded-full"></div> Dietary Presets (Low-Salt)</li>
+                                <li class="flex items-center gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-blue-500"></i> Subscription Management</li>
+                                <li class="flex items-center gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-blue-500"></i> Live Delivery Tracking</li>
+                                <li class="flex items-center gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-blue-500"></i> Support Hotline</li>
                             </ul>
                         </div>
                         <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-shadow">
@@ -83,13 +90,11 @@
                                 <i data-lucide="chef-hat"></i>
                             </div>
                             <h3 class="text-xl font-bold text-slate-800 mb-2">Jiva Owner Dashboard</h3>
-                            <p class="text-slate-500 text-sm mb-4">Web-based command center for cloud kitchen ops.</p>
+                            <p class="text-slate-500 text-sm mb-4">Command center for kitchen ops and fleet management.</p>
                             <ul class="space-y-2 text-sm text-slate-600">
-                                <li class="flex items-center gap-2 font-bold text-orange-600"><div class="w-1.5 h-1.5 bg-orange-600 rounded-full"></div> Live GPS Fleet Tracking</li>
-                                <li class="flex items-center gap-2"><div class="w-1.5 h-1.5 bg-orange-400 rounded-full"></div> Menu & Category Management</li>
-                                <li class="flex items-center gap-2"><div class="w-1.5 h-1.5 bg-orange-400 rounded-full"></div> Business Analytics</li>
-                                <li class="flex items-center gap-2"><div class="w-1.5 h-1.5 bg-orange-400 rounded-full"></div> Fleet Coordination</li>
-                                <li class="flex items-center gap-2"><div class="w-1.5 h-1.5 bg-orange-400 rounded-full"></div> Zone Control (Geofencing)</li>
+                                <li class="flex items-center gap-2 font-bold text-orange-600"><i data-lucide="navigation" class="w-4 h-4"></i> Live GPS Fleet Tracking</li>
+                                <li class="flex items-center gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-orange-400"></i> Inventory Management</li>
+                                <li class="flex items-center gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-orange-400"></i> Business Analytics</li>
                             </ul>
                         </div>
                         <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-shadow">
@@ -97,12 +102,11 @@
                                 <i data-lucide="bike"></i>
                             </div>
                             <h3 class="text-xl font-bold text-slate-800 mb-2">Jiva Delivery App</h3>
-                            <p class="text-slate-500 text-sm mb-4">Ultra-lean mobile tool for field agents.</p>
+                            <p class="text-slate-500 text-sm mb-4">Mobile tool for field agents ensuring precision delivery.</p>
                             <ul class="space-y-2 text-sm text-slate-600">
-                                <li class="flex items-center gap-2"><div class="w-1.5 h-1.5 bg-green-400 rounded-full"></div> Optimized Routing</li>
-                                <li class="flex items-center gap-2"><div class="w-1.5 h-1.5 bg-green-400 rounded-full"></div> Real-time Status Updates</li>
-                                <li class="flex items-center gap-2"><div class="w-1.5 h-1.5 bg-green-400 rounded-full"></div> Earnings Wallet</li>
-                                <li class="flex items-center gap-2"><div class="w-1.5 h-1.5 bg-green-400 rounded-full"></div> In-app Communication</li>
+                                <li class="flex items-center gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-green-500"></i> Route Optimization</li>
+                                <li class="flex items-center gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-green-500"></i> Real-time Status Updates</li>
+                                <li class="flex items-center gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-green-500"></i> Earnings Tracker</li>
                             </ul>
                         </div>
                     </div>
@@ -113,49 +117,46 @@
                     <h3 class="text-2xl font-bold text-slate-800 mb-8 flex items-center gap-2">
                         <i data-lucide="git-branch" class="text-indigo-600"></i> Operational Data Flow
                     </h3>
-                    <div class="grid grid-cols-1 gap-8">
-                        <div class="flex flex-col md:flex-row items-center justify-between gap-4">
-                            <div class="w-full md:w-64 p-4 bg-blue-50 border-2 border-blue-200 rounded-2xl text-center">
-                                <i data-lucide="users" class="mx-auto mb-2 text-blue-600"></i>
-                                <p class="font-bold text-blue-800">Jiva Customer</p>
-                                <p class="text-xs text-blue-600">Subscribes/Orders via App</p>
-                            </div>
-                            <i data-lucide="arrow-right" class="hidden md:block text-slate-300"></i>
-                            <div class="w-full md:w-64 p-4 bg-orange-50 border-2 border-orange-200 rounded-2xl text-center">
-                                <i data-lucide="chef-hat" class="mx-auto mb-2 text-orange-600"></i>
-                                <p class="font-bold text-orange-800">Jiva Kitchen</p>
-                                <p class="text-xs text-orange-600">Receives Order & Prepares</p>
-                            </div>
-                            <i data-lucide="arrow-right" class="hidden md:block text-slate-300"></i>
-                            <div class="w-full md:w-64 p-4 bg-green-50 border-2 border-green-200 rounded-2xl text-center">
-                                <i data-lucide="bike" class="mx-auto mb-2 text-green-600"></i>
-                                <p class="font-bold text-green-800">Jiva Delivery</p>
-                                <p class="text-xs text-green-600">Picks up & Navigates</p>
-                            </div>
+                    <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+                        <div class="w-full md:w-64 p-6 bg-blue-50 border-2 border-blue-200 rounded-2xl text-center">
+                            <i data-lucide="users" class="mx-auto mb-2 text-blue-600"></i>
+                            <p class="font-bold text-blue-800">Jiva Customer</p>
+                            <p class="text-xs text-blue-600">Subscribes via App</p>
                         </div>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8">
-                            <div class="p-6 bg-slate-50 rounded-2xl border border-dashed border-slate-300">
-                                <p class="font-bold text-slate-700 text-sm mb-2">Automated Notifications</p>
-                                <div class="space-y-2 text-xs text-slate-500">
-                                    <p class="flex items-center gap-2"><i data-lucide="check-circle-2" class="w-3 h-3 text-green-500"></i> Order Confirmation to Customer</p>
-                                    <p class="flex items-center gap-2"><i data-lucide="check-circle-2" class="w-3 h-3 text-green-500"></i> Dispatch Alert to Rider</p>
-                                    <p class="flex items-center gap-2"><i data-lucide="check-circle-2" class="w-3 h-3 text-green-500"></i> Arrival Notification (Geo-fence)</p>
-                                </div>
-                            </div>
-                            <div class="p-6 bg-indigo-50 rounded-2xl border border-indigo-100 flex items-center justify-center text-center">
-                                <div>
-                                    <i data-lucide="trending-up" class="mx-auto text-indigo-600 mb-2"></i>
-                                    <p class="text-sm font-bold text-indigo-800">Real-time Analytics</p>
-                                    <p class="text-xs text-indigo-600">Owner monitors performance & efficiency.</p>
-                                </div>
+                        <i data-lucide="arrow-right" class="hidden md:block text-slate-300"></i>
+                        <div class="w-full md:w-64 p-6 bg-orange-50 border-2 border-orange-200 rounded-2xl text-center">
+                            <i data-lucide="chef-hat" class="mx-auto mb-2 text-orange-600"></i>
+                            <p class="font-bold text-orange-800">Jiva Kitchen</p>
+                            <p class="text-xs text-orange-600">Prepares Specialized Meal</p>
+                        </div>
+                        <i data-lucide="arrow-right" class="hidden md:block text-slate-300"></i>
+                        <div class="w-full md:w-64 p-6 bg-green-50 border-2 border-green-200 rounded-2xl text-center">
+                            <i data-lucide="bike" class="mx-auto mb-2 text-green-600"></i>
+                            <p class="font-bold text-green-800">Jiva Delivery</p>
+                            <p class="text-xs text-green-600">GPS Tracked Delivery</p>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8">
+                        <div class="p-6 bg-slate-50 rounded-2xl border border-dashed border-slate-300">
+                            <p class="font-bold text-slate-700 text-sm mb-2">Automated Notifications</p>
+                            <p class="text-xs text-slate-500 mb-1">• Order Confirmation to Customer</p>
+                            <p class="text-xs text-slate-500 mb-1">• Dispatch Alert to Rider</p>
+                            <p class="text-xs text-slate-500">• Arrival Notification (Geo-fence)</p>
+                        </div>
+                        <div class="p-6 bg-indigo-50 rounded-2xl border border-indigo-100 flex items-center justify-center text-center">
+                            <div>
+                                <i data-lucide="trending-up" class="mx-auto text-indigo-600 mb-2"></i>
+                                <p class="text-sm font-bold text-indigo-800">Operational Oversight</p>
+                                <p class="text-xs text-indigo-600">Owner monitors performance & fleet efficiency.</p>
                             </div>
                         </div>
                     </div>
                 </section>
 
                 <!-- Customer UX Section -->
-                <section id="customer-ux" class="tab-content p-4">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                <section id="customer-ux" class="tab-content p-8">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <!-- Left: Phone Mockup -->
                         <div class="relative bg-slate-800 rounded-[2.5rem] p-4 border-8 border-slate-700 shadow-2xl overflow-hidden aspect-[9/18] max-w-[280px] mx-auto">
                             <div class="bg-white h-full rounded-[2rem] p-6 font-sans">
                                 <div class="flex justify-between items-center mb-6">
@@ -166,16 +167,16 @@
                                     <div class="bg-orange-50 p-4 rounded-2xl border-2 border-orange-200">
                                         <span class="text-[10px] font-bold text-orange-600 uppercase tracking-widest">Today's Meal</span>
                                         <p class="text-lg font-bold text-slate-800">Dal Tadka & Oats Roti</p>
-                                        <p class="text-[10px] text-slate-500">Low Sodium Diet</p>
+                                        <p class="text-[10px] text-slate-500">Low Sodium Plan</p>
                                     </div>
                                     <button class="w-full bg-blue-600 text-white p-5 rounded-2xl text-xl font-bold shadow-lg flex items-center justify-between">
-                                        My Subscription <i data-lucide="chevron-right"></i>
+                                        Subscription <i data-lucide="chevron-right"></i>
                                     </button>
                                     <button class="w-full bg-green-600 text-white p-5 rounded-2xl text-xl font-bold shadow-lg flex items-center justify-between">
-                                        Medicines <i data-lucide="chevron-right"></i>
+                                        Medicines <i data-lucide="pill" class="w-5 h-5"></i>
                                     </button>
                                     <button class="w-full bg-slate-100 text-slate-700 p-5 rounded-2xl text-xl font-bold flex items-center justify-between">
-                                        Track Order <i data-lucide="chevron-right"></i>
+                                        Track Order <i data-lucide="navigation" class="w-5 h-5"></i>
                                     </button>
                                     <button class="w-full bg-red-50 text-red-600 p-4 rounded-2xl border-2 border-red-200 text-lg font-bold flex items-center justify-center gap-2 mt-4">
                                         <i data-lucide="phone-call" class="w-5 h-5"></i> Support
@@ -183,28 +184,53 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="space-y-6">
-                            <h3 class="text-2xl font-bold text-slate-800">Elderly-Centric Design</h3>
-                            <div class="space-y-4">
-                                <div class="flex gap-4 items-start">
-                                    <div class="p-2 bg-blue-100 text-blue-600 rounded-lg"><i data-lucide="zap" class="w-5 h-5"></i></div>
-                                    <div>
-                                        <p class="font-bold">High-Contrast & Large Fonts</p>
-                                        <p class="text-sm text-slate-500">Ensuring readability for all users.</p>
+                        <!-- Right: Flow & Rules -->
+                        <div class="space-y-8">
+                            <div>
+                                <h3 class="text-2xl font-bold text-slate-800 border-b-2 border-indigo-100 pb-2 mb-4">Core Interface Flow</h3>
+                                <p class="text-sm text-slate-500 mb-4 font-medium uppercase tracking-wider">Home Screen Hierarchy:</p>
+                                <div class="grid grid-cols-1 gap-3">
+                                    <div class="flex items-center gap-3 p-3 bg-white rounded-xl border border-slate-100 shadow-sm">
+                                        <span class="text-xl">🍲</span> <span class="text-sm font-bold">Today’s Meals</span>
+                                    </div>
+                                    <div class="flex items-center gap-3 p-3 bg-white rounded-xl border border-slate-100 shadow-sm">
+                                        <span class="text-xl">❤️</span> <span class="text-sm font-bold">My Subscription</span>
+                                    </div>
+                                    <div class="flex items-center gap-3 p-3 bg-white rounded-xl border border-slate-100 shadow-sm">
+                                        <span class="text-xl">💊</span> <span class="text-sm font-bold">Medicines</span>
+                                    </div>
+                                    <div class="flex items-center gap-3 p-3 bg-white rounded-xl border border-slate-100 shadow-sm">
+                                        <span class="text-xl">📍</span> <span class="text-sm font-bold">Track Order</span>
+                                    </div>
+                                    <div class="flex items-center gap-3 p-3 bg-white rounded-xl border border-slate-100 shadow-sm">
+                                        <span class="text-xl">☎</span> <span class="text-sm font-bold">Call Support</span>
                                     </div>
                                 </div>
-                                <div class="flex gap-4 items-start">
-                                    <div class="p-2 bg-green-100 text-green-600 rounded-lg"><i data-lucide="heart" class="w-5 h-5"></i></div>
-                                    <div>
-                                        <p class="font-bold">The "3-Click" Rule</p>
-                                        <p class="text-sm text-slate-500">No core action takes more than 3 steps.</p>
+                            </div>
+                            
+                            <div>
+                                <h3 class="text-2xl font-bold text-slate-800 border-b-2 border-indigo-100 pb-2 mb-4">UX Design Rules</h3>
+                                <div class="space-y-4">
+                                    <div class="flex gap-4 items-start p-4 bg-indigo-50 rounded-2xl border border-indigo-100">
+                                        <div class="p-2 bg-indigo-600 text-white rounded-lg"><i data-lucide="type"></i></div>
+                                        <div>
+                                            <p class="font-bold text-indigo-900 text-sm">BIG Fonts & Buttons</p>
+                                            <p class="text-xs text-indigo-700">Strict minimum text sizes to ensure readability for elderly users.</p>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="flex gap-4 items-start">
-                                    <div class="p-2 bg-purple-100 text-purple-600 rounded-lg"><i data-lucide="smartphone" class="w-5 h-5"></i></div>
-                                    <div>
-                                        <p class="font-bold">Simplified Interface</p>
-                                        <p class="text-sm text-slate-500">Clean iconography and tactile feel.</p>
+                                    <div class="flex gap-4 items-start p-4 bg-blue-50 rounded-2xl border border-blue-100">
+                                        <div class="p-2 bg-blue-600 text-white rounded-lg"><i data-lucide="mic"></i></div>
+                                        <div>
+                                            <p class="font-bold text-blue-900 text-sm">Voice Option (Phase 3)</p>
+                                            <p class="text-xs text-blue-700">Integrated voice commands for hands-free meal selection.</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex gap-4 items-start p-4 bg-green-50 rounded-2xl border border-green-100">
+                                        <div class="p-2 bg-green-600 text-white rounded-lg"><i data-lucide="mouse-pointer-2"></i></div>
+                                        <div>
+                                            <p class="font-bold text-green-900 text-sm">Max 3 Steps to Order</p>
+                                            <p class="text-xs text-green-700">Cognitive load reduction; no complex multi-page forms.</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -212,139 +238,187 @@
                     </div>
                 </section>
 
-                <!-- Dashboard UX Section -->
+                <!-- Dashboard UX (Live Tracking) Section -->
                 <section id="dashboard-ux" class="tab-content p-8">
                     <div class="flex flex-col md:flex-row justify-between items-end mb-8 gap-4">
                         <div>
                             <h3 class="text-2xl font-bold text-slate-800">Fleet Control Center</h3>
-                            <p class="text-slate-500">Real-time monitoring of Jiva delivery agents.</p>
+                            <p class="text-slate-500 italic">Real-time GPS tracking of active Jiva agents.</p>
                         </div>
                         <div class="flex gap-2">
-                            <span class="bg-green-100 text-green-700 px-4 py-2 rounded-xl text-xs font-bold border border-green-200">12 Active Agents</span>
+                            <span class="bg-green-100 text-green-700 px-4 py-2 rounded-xl text-xs font-bold border border-green-200">12 Agents Online</span>
                             <span class="bg-blue-100 text-blue-700 px-4 py-2 rounded-xl text-xs font-bold border border-blue-200">48 Live Orders</span>
                         </div>
                     </div>
                     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                        <div class="lg:col-span-2 bg-slate-100 rounded-3xl border border-slate-200 h-[400px] relative overflow-hidden flex items-center justify-center">
+                        <!-- Live Map Area -->
+                        <div class="lg:col-span-2 bg-slate-100 rounded-3xl border border-slate-200 h-[450px] relative overflow-hidden flex items-center justify-center">
                             <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(#000 1px, transparent 0); background-size: 30px 30px;"></div>
-                            <div class="absolute top-1/4 left-1/3 bg-white px-2 py-1 rounded shadow-lg border border-slate-200 flex items-center gap-1 animate-pulse">
-                                <i data-lucide="bike" class="w-3 h-3 text-green-600"></i> <span class="text-[10px] font-bold">Amit</span>
-                            </div>
-                            <div class="absolute bottom-1/3 right-1/4 bg-white px-2 py-1 rounded shadow-lg border border-slate-200 flex items-center gap-1">
-                                <i data-lucide="bike" class="w-3 h-3 text-orange-600"></i> <span class="text-[10px] font-bold">Sumit</span>
-                            </div>
-                            <div class="absolute top-1/2 right-1/2 bg-white px-2 py-1 rounded shadow-lg border border-indigo-200 flex items-center gap-1">
-                                <i data-lucide="map-pin" class="w-3 h-3 text-indigo-600"></i> <span class="text-[10px] font-bold text-indigo-600 uppercase">Hub</span>
-                            </div>
-                            <div class="absolute bottom-4 left-4 right-4 bg-white/80 backdrop-blur-sm p-3 rounded-2xl border border-white flex justify-between items-center">
-                                <div class="flex items-center gap-3">
-                                    <i data-lucide="navigation" class="w-4 h-4 text-indigo-600"></i>
-                                    <span class="text-xs font-bold">Basaveshnagar Sector</span>
+                            
+                            <!-- Central Hub -->
+                            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center">
+                                <div class="w-12 h-12 bg-indigo-600 rounded-2xl flex items-center justify-center shadow-xl mx-auto mb-1">
+                                    <i data-lucide="chef-hat" class="text-white w-6 h-6"></i>
                                 </div>
-                                <span class="text-[10px] font-bold text-indigo-600 underline cursor-pointer">Switch Sector</span>
+                                <span class="text-[9px] font-black uppercase text-indigo-600 bg-white px-2 py-0.5 rounded-full border border-indigo-100">Jiva Hub</span>
+                            </div>
+
+                            <!-- Animated Markers -->
+                            <div id="rider-1" class="absolute top-1/4 left-1/3 bg-white px-3 py-1.5 rounded-xl shadow-xl border-2 border-green-500 flex items-center gap-2 floating-marker">
+                                <i data-lucide="bike" class="w-4 h-4 text-green-600"></i> <span class="text-[10px] font-bold text-slate-800">Amit (Active)</span>
+                            </div>
+                            <div id="rider-2" class="absolute bottom-1/3 right-1/4 bg-white px-3 py-1.5 rounded-xl shadow-xl border-2 border-orange-500 flex items-center gap-2 floating-marker">
+                                <i data-lucide="bike" class="w-4 h-4 text-orange-600"></i> <span class="text-[10px] font-bold text-slate-800">Sumit (Picking Up)</span>
+                            </div>
+
+                            <div class="absolute bottom-4 left-4 right-4 bg-white/90 backdrop-blur-sm p-4 rounded-2xl border border-white flex justify-between items-center">
+                                <div class="flex items-center gap-3">
+                                    <i data-lucide="navigation" class="w-5 h-5 text-indigo-600"></i>
+                                    <span class="text-xs font-bold">Currently Tracking: Rajajinagar Sector</span>
+                                </div>
+                                <button onclick="simulateMovement()" class="text-[10px] font-bold text-indigo-600 underline">Refresh GPS</button>
                             </div>
                         </div>
+
+                        <!-- Status Feed -->
                         <div class="space-y-4">
-                            <h4 class="text-xs font-black text-slate-400 uppercase tracking-widest">Active Status</h4>
+                            <h4 class="text-xs font-black text-slate-400 uppercase tracking-widest">Recent Activity</h4>
                             <div class="p-4 bg-white border border-slate-100 rounded-2xl shadow-sm">
                                 <div class="flex justify-between items-center mb-1">
-                                    <span class="text-sm font-bold">Order #4021</span>
-                                    <span class="text-[10px] font-black uppercase bg-slate-100 px-2 py-0.5 rounded text-slate-500">On Way</span>
+                                    <span class="text-sm font-bold">#J-9041</span>
+                                    <span class="text-[9px] font-black uppercase bg-green-100 px-2 py-0.5 rounded text-green-700">Delivered</span>
                                 </div>
-                                <div class="flex justify-between text-xs text-slate-500">
-                                    <span>Amit</span>
-                                    <span class="font-bold text-indigo-600">8 min</span>
-                                </div>
+                                <p class="text-xs text-slate-500">Agent: Amit | Route: Sector 4</p>
                             </div>
                             <div class="p-4 bg-red-50 border border-red-100 rounded-2xl shadow-sm">
                                 <div class="flex justify-between items-center mb-1">
-                                    <span class="text-sm font-bold">Order #4023</span>
-                                    <span class="text-[10px] font-black uppercase bg-red-500 px-2 py-0.5 rounded text-white">Delayed</span>
+                                    <span class="text-sm font-bold">#J-9043</span>
+                                    <span class="text-[9px] font-black uppercase bg-red-500 px-2 py-0.5 rounded text-white animate-pulse">Delayed</span>
                                 </div>
-                                <div class="flex justify-between text-xs text-slate-500">
-                                    <span>Sagar</span>
-                                    <span class="font-bold text-red-600">15 min</span>
-                                </div>
+                                <p class="text-xs text-red-500 font-medium">Traffic block at Basaveshnagar Main</p>
                             </div>
-                            <button class="w-full py-3 bg-slate-50 text-slate-500 text-xs font-bold rounded-xl border border-slate-200 border-dashed">View All Deliveries</button>
                         </div>
                     </div>
                 </section>
 
                 <!-- Roadmap Section -->
-                <section id="roadmap" class="tab-content p-4 space-y-6">
-                    <div class="flex gap-4">
-                        <div class="flex flex-col items-center">
-                            <div class="w-8 h-8 bg-indigo-600 text-white rounded-full flex items-center justify-center font-bold z-10">1</div>
-                            <div class="w-0.5 h-full bg-slate-200 -mt-2"></div>
-                        </div>
-                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex-1">
-                            <h4 class="text-lg font-bold">Phase 1: MVP Pilot</h4>
-                            <p class="text-indigo-600 text-sm font-semibold mb-3">Operational Proof of Concept</p>
-                            <div class="flex flex-wrap gap-2 mb-4">
-                                <span class="bg-slate-50 text-slate-600 px-3 py-1 rounded-full text-xs border border-slate-200">Subscription meals</span>
-                                <span class="bg-slate-50 text-slate-600 px-3 py-1 rounded-full text-xs border border-slate-200">Live tracking</span>
-                            </div>
-                            <p class="text-xs text-slate-400 flex items-center gap-1"><i data-lucide="map-pin" class="w-3 h-3"></i> Rajajinagar, Basaveshnagar</p>
-                        </div>
-                    </div>
-                    <div class="flex gap-4">
-                        <div class="flex flex-col items-center">
-                            <div class="w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold z-10">2</div>
-                            <div class="w-0.5 h-full bg-slate-200 -mt-2"></div>
-                        </div>
-                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex-1">
-                            <h4 class="text-lg font-bold">Phase 2: Expansion</h4>
-                            <p class="text-blue-600 text-sm font-semibold mb-3">Service Scaling</p>
-                            <div class="flex flex-wrap gap-2 mb-4">
-                                <span class="bg-slate-50 text-slate-600 px-3 py-1 rounded-full text-xs border border-slate-200">Medication delivery</span>
-                                <span class="bg-slate-50 text-slate-600 px-3 py-1 rounded-full text-xs border border-slate-200">Smart routing</span>
-                            </div>
-                            <p class="text-xs text-slate-400 flex items-center gap-1"><i data-lucide="map-pin" class="w-3 h-3"></i> Malleshwaram + 2 Zones</p>
+                <section id="roadmap" class="tab-content p-8 space-y-10">
+                    <div class="flex gap-6 group">
+                        <div class="w-12 h-12 bg-indigo-600 text-white rounded-2xl flex items-center justify-center font-black shadow-lg shadow-indigo-100 flex-shrink-0">1</div>
+                        <div class="flex-1">
+                            <h4 class="text-xl font-bold text-slate-800">Phase 1: MVP Pilot (Pilot Launch)</h4>
+                            <p class="text-indigo-600 text-sm font-semibold mb-2">Location: Rajajinagar, Basaveshnagar</p>
+                            <ul class="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm text-slate-500">
+                                <li class="flex items-center gap-2"><i data-lucide="chevron-right" class="w-3 h-3 text-indigo-400"></i> Subscription meals</li>
+                                <li class="flex items-center gap-2"><i data-lucide="chevron-right" class="w-3 h-3 text-indigo-400"></i> 1-hour delivery tracking</li>
+                                <li class="flex items-center gap-2"><i data-lucide="chevron-right" class="w-3 h-3 text-indigo-400"></i> Basic owner dashboard</li>
+                                <li class="flex items-center gap-2"><i data-lucide="chevron-right" class="w-3 h-3 text-indigo-400"></i> Simple elderly UI</li>
+                            </ul>
+                            <p class="mt-3 text-xs font-bold text-slate-400 uppercase tracking-widest">Goal: Test operations & user experience</p>
                         </div>
                     </div>
-                    <div class="flex gap-4">
-                        <div class="flex flex-col items-center">
-                            <div class="w-8 h-8 bg-teal-600 text-white rounded-full flex items-center justify-center font-bold z-10">3</div>
+
+                    <div class="flex gap-6 group">
+                        <div class="w-12 h-12 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-black shadow-lg shadow-blue-100 flex-shrink-0">2</div>
+                        <div class="flex-1">
+                            <h4 class="text-xl font-bold text-slate-800">Phase 2: Expansion</h4>
+                            <p class="text-blue-600 text-sm font-semibold mb-2">Location: Malleshwaram + 2 more areas</p>
+                            <ul class="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm text-slate-500">
+                                <li class="flex items-center gap-2"><i data-lucide="chevron-right" class="w-3 h-3 text-blue-400"></i> Medication ordering</li>
+                                <li class="flex items-center gap-2"><i data-lucide="chevron-right" class="w-3 h-3 text-blue-400"></i> Smart delivery routing</li>
+                                <li class="flex items-center gap-2"><i data-lucide="chevron-right" class="w-3 h-3 text-blue-400"></i> Advanced business analytics</li>
+                            </ul>
                         </div>
-                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex-1">
-                            <h4 class="text-lg font-bold">Phase 3: Advanced Ecosystem</h4>
-                            <p class="text-teal-600 text-sm font-semibold mb-3">Health AI Integration</p>
-                            <div class="flex flex-wrap gap-2 mb-4">
-                                <span class="bg-slate-50 text-slate-600 px-3 py-1 rounded-full text-xs border border-slate-200">Diet Recommendations</span>
-                                <span class="bg-slate-50 text-slate-600 px-3 py-1 rounded-full text-xs border border-slate-200">Demand Forecasting</span>
-                            </div>
-                            <p class="text-xs text-slate-400 flex items-center gap-1"><i data-lucide="map-pin" class="w-3 h-3"></i> City-wide coverage</p>
+                    </div>
+
+                    <div class="flex gap-6 group">
+                        <div class="w-12 h-12 bg-teal-600 text-white rounded-2xl flex items-center justify-center font-black shadow-lg shadow-teal-100 flex-shrink-0">3</div>
+                        <div class="flex-1">
+                            <h4 class="text-xl font-bold text-slate-800">Phase 3: Advanced System</h4>
+                            <p class="text-teal-600 text-sm font-semibold mb-2">City-wide Integration</p>
+                            <ul class="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm text-slate-500">
+                                <li class="flex items-center gap-2"><i data-lucide="chevron-right" class="w-3 h-3 text-teal-400"></i> Auto meal recommendations (AI)</li>
+                                <li class="flex items-center gap-2"><i data-lucide="chevron-right" class="w-3 h-3 text-teal-400"></i> Health reminder notifications</li>
+                                <li class="flex items-center gap-2"><i data-lucide="chevron-right" class="w-3 h-3 text-teal-400"></i> AI demand forecasting</li>
+                            </ul>
                         </div>
                     </div>
                 </section>
 
                 <!-- FRD Section -->
-                <section id="frd" class="tab-content p-8 space-y-8">
-                    <div>
-                        <h3 class="text-xl font-bold border-l-4 border-blue-500 pl-4 mb-4">Customer App Modules</h3>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div class="p-4 bg-slate-50 rounded-xl">
-                                <p class="font-bold text-slate-700 text-sm mb-1">Health Profile</p>
-                                <p class="text-xs text-slate-500">Diabetic, Low-salt, Soft Diet selection.</p>
+                <section id="frd" class="tab-content p-8 space-y-10">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="space-y-6">
+                            <div class="border-b border-indigo-100 pb-2">
+                                <h3 class="text-lg font-black text-indigo-600 uppercase tracking-widest">Customer App</h3>
+                                <p class="text-xs text-slate-400 font-bold uppercase tracking-tight">Focus: Elderly Friendly UX</p>
                             </div>
-                            <div class="p-4 bg-slate-50 rounded-xl">
-                                <p class="font-bold text-slate-700 text-sm mb-1">Subscription Engine</p>
-                                <p class="text-xs text-slate-500">Weekly/Monthly meal plans with Pause feature.</p>
+                            <ul class="space-y-4 text-sm text-slate-600">
+                                <li class="flex gap-3">
+                                    <div class="w-5 h-5 bg-indigo-50 rounded flex items-center justify-center mt-0.5"><i data-lucide="heart" class="w-3 h-3 text-indigo-500"></i></div>
+                                    <div>
+                                        <p class="font-bold text-slate-800">Personalized Diets</p>
+                                        <p class="text-xs text-slate-500">Subscribe to diabetic, low-salt, or soft-diet plans.</p>
+                                    </div>
+                                </li>
+                                <li class="flex gap-3">
+                                    <div class="w-5 h-5 bg-indigo-50 rounded flex items-center justify-center mt-0.5"><i data-lucide="pill" class="w-3 h-3 text-indigo-500"></i></div>
+                                    <div>
+                                        <p class="font-bold text-slate-800">Integrated Medications</p>
+                                        <p class="text-xs text-slate-500">Order prescription food or medicines alongside meals.</p>
+                                    </div>
+                                </li>
+                                <li class="flex gap-3">
+                                    <div class="w-5 h-5 bg-indigo-50 rounded flex items-center justify-center mt-0.5"><i data-lucide="phone-call" class="w-3 h-3 text-indigo-500"></i></div>
+                                    <div>
+                                        <p class="font-bold text-slate-800">Support Access</p>
+                                        <p class="text-xs text-slate-500">Simplified UI with big buttons and a direct call support button.</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="space-y-6">
+                            <div class="border-b border-orange-100 pb-2">
+                                <h3 class="text-lg font-black text-orange-600 uppercase tracking-widest">Owner Dashboard</h3>
+                                <p class="text-xs text-slate-400 font-bold uppercase tracking-tight">Focus: Fleet & Kitchen Ops</p>
                             </div>
+                            <ul class="space-y-4 text-sm text-slate-600">
+                                <li class="flex gap-3">
+                                    <div class="w-5 h-5 bg-orange-50 rounded flex items-center justify-center mt-0.5"><i data-lucide="chef-hat" class="w-3 h-3 text-orange-500"></i></div>
+                                    <div>
+                                        <p class="font-bold text-slate-800">Cloud Kitchen Manager</p>
+                                        <p class="text-xs text-slate-500">Create food categories and manage subscription plans.</p>
+                                    </div>
+                                </li>
+                                <li class="flex gap-3">
+                                    <div class="w-5 h-5 bg-orange-50 rounded flex items-center justify-center mt-0.5"><i data-lucide="navigation" class="w-3 h-3 text-orange-500"></i></div>
+                                    <div>
+                                        <p class="font-bold text-slate-800">Fleet Control</p>
+                                        <p class="text-xs text-slate-500">Manage delivery partners and control service area zones.</p>
+                                    </div>
+                                </li>
+                                <li class="flex gap-3">
+                                    <div class="w-5 h-5 bg-orange-50 rounded flex items-center justify-center mt-0.5"><i data-lucide="bar-chart-2" class="w-3 h-3 text-orange-500"></i></div>
+                                    <div>
+                                        <p class="font-bold text-slate-800">Business Intelligence</p>
+                                        <p class="text-xs text-slate-500">Comprehensive view of orders, revenue, and delivery analytics.</p>
+                                    </div>
+                                </li>
+                            </ul>
                         </div>
                     </div>
-                    <div>
-                        <h3 class="text-xl font-bold border-l-4 border-orange-500 pl-4 mb-4">Owner Dashboard Modules</h3>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div class="p-4 bg-slate-50 rounded-xl border border-orange-100">
-                                <p class="font-bold text-orange-700 text-sm mb-1 flex items-center gap-1"><i data-lucide="navigation" class="w-4 h-4"></i> Live Fleet Tracking</p>
-                                <p class="text-xs text-slate-500">Real-time GPS view of active riders.</p>
-                            </div>
-                            <div class="p-4 bg-slate-50 rounded-xl">
-                                <p class="font-bold text-slate-700 text-sm mb-1">Inventory Control</p>
-                                <p class="text-xs text-slate-500">Specialty ingredient tracking.</p>
-                            </div>
+
+                    <div class="mt-8 p-6 bg-slate-50 rounded-3xl border border-slate-100">
+                        <div class="border-b border-green-100 pb-2 mb-4">
+                            <h3 class="text-md font-black text-green-600 uppercase tracking-widest">Delivery Agent App</h3>
+                            <p class="text-xs text-slate-400 font-bold uppercase tracking-tight">Focus: Efficiency & Simplicity</p>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-slate-600">
+                            <div class="flex items-center gap-3"><i data-lucide="check" class="w-4 h-4 text-green-500"></i> Accept/Reject orders with one tap</div>
+                            <div class="flex items-center gap-3"><i data-lucide="check" class="w-4 h-4 text-green-500"></i> Built-in route navigation</div>
+                            <div class="flex items-center gap-3"><i data-lucide="check" class="w-4 h-4 text-green-500"></i> Real-time status updates</div>
+                            <div class="flex items-center gap-3"><i data-lucide="check" class="w-4 h-4 text-green-500"></i> Daily/Weekly earnings tracking</div>
                         </div>
                     </div>
                 </section>
@@ -352,37 +426,45 @@
             </div>
 
             <!-- Footer Bar -->
-            <div class="bg-slate-50 px-8 py-6 flex flex-col md:flex-row justify-between items-center gap-4">
-                <div class="text-slate-500 text-sm">
-                    <span class="font-bold">Project Jiva:</span> Smart nutrition for a better life.
-                </div>
+            <div class="bg-slate-50 px-8 py-6 border-t border-slate-100">
+                <p class="text-slate-500 text-sm font-medium">
+                    <span class="font-bold text-indigo-600 italic">Project Jiva</span> — Advanced Specialized Nutrition & Wellness Ecosystem.
+                </p>
             </div>
         </div>
     </main>
 
     <script>
-        // Initialize Lucide Icons
+        // Initialize Icons
         lucide.createIcons();
 
-        // Tab Switching Logic
+        // Tab Management
         function switchTab(tabId) {
-            // Update Tab Content
-            const contents = document.querySelectorAll('.tab-content');
-            contents.forEach(content => content.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.nav-button').forEach(el => el.classList.remove('active'));
+            
             document.getElementById(tabId).classList.add('active');
+            document.querySelector(`[data-tab="${tabId}"]`).classList.add('active');
 
-            // Update Nav Buttons
-            const buttons = document.querySelectorAll('.nav-button');
-            buttons.forEach(btn => {
-                btn.classList.remove('active');
-                if(btn.getAttribute('data-tab') === tabId) {
-                    btn.classList.add('active');
-                }
-            });
-
-            // Re-render icons if needed (sometimes needed for dynamic content)
+            if(tabId === 'dashboard-ux') simulateMovement();
             lucide.createIcons();
         }
+
+        // GPS Simulation Logic
+        function simulateMovement() {
+            const r1 = document.getElementById('rider-1');
+            const r2 = document.getElementById('rider-2');
+            if(!r1 || !r2) return;
+
+            r1.style.top = (10 + Math.random() * 40) + '%';
+            r1.style.left = (20 + Math.random() * 40) + '%';
+            
+            r2.style.bottom = (10 + Math.random() * 40) + '%';
+            r2.style.right = (10 + Math.random() * 50) + '%';
+        }
+
+        // Loop movement every 10s if dashboard is open
+        setInterval(simulateMovement, 10000);
     </script>
 </body>
 </html>
